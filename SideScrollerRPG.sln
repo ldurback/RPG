@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPG", "RPG\RPG.csproj", "{969226CF-B997-4D59-A4CF-FE436E69018A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SideScrollerRPG", "RPG\SideScrollerRPG.csproj", "{969226CF-B997-4D59-A4CF-FE436E69018A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

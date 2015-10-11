@@ -22,12 +22,32 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.css" />
+    <Content Include="assets\images\background.png" />
+    <Content Include="assets\images\character.png" />
+    <Content Include="assets\images\dude.png" />
+    <Content Include="assets\images\fly_spritesheet.png" />
+    <Content Include="assets\images\loader.png" />
+    <Content Include="assets\images\platform.png" />
+    <Content Include="assets\images\player_spritesheet.png" />
+    <Content Include="assets\images\slime.png" />
+    <Content Include="styles\app.css" />
     <Content Include="index.html" />
+    <Content Include="scripts\lib\phaser.js" />
+    <Content Include="scripts\lib\phaser.min.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="scripts\app.ts" />
+    <TypeScriptCompile Include="scripts\BattleLoader.ts" />
+    <TypeScriptCompile Include="scripts\Battles.ts" />
+    <TypeScriptCompile Include="scripts\Boot.ts" />
+    <TypeScriptCompile Include="scripts\Enemies.ts" />
+    <TypeScriptCompile Include="scripts\Game.ts" />
+    <TypeScriptCompile Include="scripts\lib\phaser.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\pixi.d.ts" />
+    <TypeScriptCompile Include="scripts\Player.ts" />
+    <TypeScriptCompile Include="scripts\Status.ts" />
+    <TypeScriptCompile Include="scripts\Weapon.ts" />
   </ItemGroup>
   <ItemGroup>
     <None Include="web.Debug.config">
@@ -37,6 +57,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
   </PropertyGroup>
@@ -66,6 +87,17 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>None</TypeScriptModuleKind>
+    <TypeScriptOutFile>game.js</TypeScriptOutFile>
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
