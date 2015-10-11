@@ -21,6 +21,8 @@
                 //  Same goes for mobile settings.
             }
 
+            this.game.state.add('GameOver', GameOver, false);
+            this.game.state.add('StatusScreen', StatusScreen, false);
             this.game.state.add('BattleLoader', BattleLoader, true);
         }
     }

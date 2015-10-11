@@ -1,6 +1,6 @@
 ﻿namespace SideScrollerRPG {
 
-    export class Player extends Phaser.Sprite {
+    export class BattlePlayer extends Phaser.Sprite {
 
         stats: Status;
 

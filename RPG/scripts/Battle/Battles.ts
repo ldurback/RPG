@@ -3,7 +3,7 @@
     abstract class Battle extends Phaser.State {
         preloadBar: Phaser.Sprite;
 
-        player: Player;
+        player: BattlePlayer;
         platforms: Phaser.Group;
         enemies: Phaser.Group;
 
@@ -33,7 +33,7 @@
             this.physics.arcade.collide(this.player, this.platforms);
             this.physics.arcade.collide(this.enemies, this.platforms);
 
-            this.physics.arcade.collide(this.player, this.enemies, (player: Player, enemy: Slime) => {
+            this.physics.arcade.collide(this.player, this.enemies, (player: BattlePlayer, enemy: Slime) => {
                 if (!player.invincible && !enemy.invincible) {
                     player.stats.currentHP -= enemy.stats.strength / player.stats.defense;
                     player.invincible = true;
@@ -62,8 +62,12 @@
 
             this.hpGauge.text = "HP: " + this.player.stats.currentHP + "/" + this.player.stats.maxHP;
 
-            if (!this.player.alive || (this.enemies.getFirstAlive() == null)) {
-                this.game.state.start('BattleLoader');
+            if (!this.player.alive) {
+                this.game.state.start('GameOver');
+            }
+
+            if (this.enemies.getFirstAlive() == null) {
+                this.game.state.start(this.game.returnState, true, false);
             }
         }
     }
@@ -88,7 +92,7 @@
             this.platforms.setAll('body.allowGravity', false);
             this.platforms.setAll('body.immovable', true);
 
-            this.player = new Player(this.game, 130, 480);
+            this.player = new BattlePlayer(this.game, 130, 480);
 
             this.enemies = this.add.physicsGroup(Phaser.Physics.ARCADE);
             this.enemies.add(new Slime(this.game, 400, 380));

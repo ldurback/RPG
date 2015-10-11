@@ -4,10 +4,10 @@
     }
 
     export class Weapon extends Phaser.Sprite {
-        wielder: Player;
+        wielder: BattlePlayer;
         stats: WeaponStatus;
 
-        constructor(game: Phaser.Game, wielder: Player) {
+        constructor(game: Phaser.Game, wielder: BattlePlayer) {
             super(game, 0, 0);
 
             this.wielder = wielder;

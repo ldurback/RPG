@@ -1,6 +1,9 @@
 ﻿namespace Phaser {
     export interface Game {
         playerStatus: SideScrollerRPG.Status;
+        returnState: string;
+        playerReturnX: number;
+        playerReturnY: number;
     }
 }
 

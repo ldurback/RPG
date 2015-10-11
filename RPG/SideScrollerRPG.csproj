@@ -24,11 +24,9 @@
   <ItemGroup>
     <Content Include="assets\images\background.png" />
     <Content Include="assets\images\character.png" />
-    <Content Include="assets\images\dude.png" />
     <Content Include="assets\images\fly_spritesheet.png" />
     <Content Include="assets\images\loader.png" />
     <Content Include="assets\images\platform.png" />
-    <Content Include="assets\images\player_spritesheet.png" />
     <Content Include="assets\images\slime.png" />
     <Content Include="styles\app.css" />
     <Content Include="index.html" />
@@ -38,14 +36,17 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="scripts\app.ts" />
-    <TypeScriptCompile Include="scripts\BattleLoader.ts" />
-    <TypeScriptCompile Include="scripts\Battles.ts" />
+    <TypeScriptCompile Include="scripts\Battle\BattleLoader.ts" />
+    <TypeScriptCompile Include="scripts\Battle\Battles.ts" />
+    <TypeScriptCompile Include="scripts\GameOver.ts" />
     <TypeScriptCompile Include="scripts\Boot.ts" />
-    <TypeScriptCompile Include="scripts\Enemies.ts" />
+    <TypeScriptCompile Include="scripts\Battle\Enemies.ts" />
     <TypeScriptCompile Include="scripts\Game.ts" />
     <TypeScriptCompile Include="scripts\lib\phaser.d.ts" />
     <TypeScriptCompile Include="scripts\lib\pixi.d.ts" />
-    <TypeScriptCompile Include="scripts\Player.ts" />
+    <TypeScriptCompile Include="scripts\Map\MapPlayer.ts" />
+    <TypeScriptCompile Include="scripts\Map\Maps.ts" />
+    <TypeScriptCompile Include="scripts\Battle\BattlePlayer.ts" />
     <TypeScriptCompile Include="scripts\Status.ts" />
     <TypeScriptCompile Include="scripts\Weapon.ts" />
   </ItemGroup>
