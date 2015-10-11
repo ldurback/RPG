@@ -9,12 +9,15 @@
         idle: boolean;
         attacking: boolean;
 
+        invincible: boolean;
+
         equippedWeapon: Weapon;
 
         constructor(game: Phaser.Game, x: number, y: number) {
             super(game, x, y, 'character', 26);
 
             this.stats = this.game.playerStatus;
+            this.invincible = false;
 
             this.equippedWeapon = new Weapon(game, this);
 
@@ -30,8 +33,8 @@
 
             this.animations.add('left', [117, 118, 119, 120, 121, 122, 123, 124, 125], 10, true);
             this.animations.add('right', [143, 144, 145, 146, 147, 148, 149, 150, 151], 10, true);
-            this.animations.add('attackLeft', [169, 170, 171, 172, 173, 174], 10, false);
-            this.animations.add('attackRight', [195, 196, 197, 198, 199, 200], 10, false);
+            this.animations.add('attackLeft', [169, 170, 171, 172, 173, 174], 20, false);
+            this.animations.add('attackRight', [195, 196, 197, 198, 199, 200], 20, false);
 
             game.add.existing(this);
 
@@ -44,7 +47,7 @@
 
             this.body.velocity.x = 0;
 
-            if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && !this.attacking) {
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && !this.attacking && !this.invincible) {
                 this.attacking = true;
                 this.idle = true;
                 if (this.facing == 'left') {
@@ -99,6 +102,13 @@
                 if (standing && this.cursors.up.isDown) {
                     this.body.velocity.y = -500;
                 }
+            }
+
+            if (this.invincible) {
+                this.renderable = !this.renderable;
+            }
+            else {
+                this.renderable = true;
             }
 
             if (this.stats.currentHP <= 0) {

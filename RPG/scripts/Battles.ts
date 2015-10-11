@@ -34,11 +34,30 @@
             this.physics.arcade.collide(this.enemies, this.platforms);
 
             this.physics.arcade.collide(this.player, this.enemies, (player: Player, enemy: Slime) => {
-                player.stats.currentHP -= enemy.stats.strength / player.stats.defense;
+                if (!player.invincible && !enemy.invincible) {
+                    player.stats.currentHP -= enemy.stats.strength / player.stats.defense;
+                    player.invincible = true;
+
+                    var invincibleTimer: Phaser.Timer = this.game.time.create(true);
+                    invincibleTimer.add(1000, () => {
+                        player.invincible = false;
+                    });
+                    invincibleTimer.start();
+                }
             });
 
             this.physics.arcade.collide(this.player.equippedWeapon, this.enemies, (playerWeapon: Weapon, enemy: Enemy) => {
-                enemy.stats.currentHP -= playerWeapon.wielder.stats.strength / enemy.stats.defense;
+                if (!enemy.invincible) {
+                    enemy.stats.currentHP -= playerWeapon.wielder.stats.strength / enemy.stats.defense;
+
+                    enemy.invincible = true;
+
+                    var invincibleTimer: Phaser.Timer = this.game.time.create(true);
+                    invincibleTimer.add(1000, () => {
+                        enemy.invincible = false;
+                    });
+                    invincibleTimer.start();
+                }
             });
 
             this.hpGauge.text = "HP: " + this.player.stats.currentHP + "/" + this.player.stats.maxHP;
@@ -72,7 +91,8 @@
             this.player = new Player(this.game, 130, 480);
 
             this.enemies = this.add.physicsGroup(Phaser.Physics.ARCADE);
-            this.enemies.add(new Slime(this.game, 400, 300));
+            this.enemies.add(new Slime(this.game, 400, 380));
+            this.enemies.add(new Slime(this.game, 250, 242));
 
             this.game.physics.arcade.gravity.y = 800;
         }
