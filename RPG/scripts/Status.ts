@@ -39,12 +39,6 @@
                     var itemText: Phaser.Text = this.add.text(0, 50 + 50 * index, itemTypeAndAmount[0] + ": " + itemTypeAndAmount[1], { fill: "#999999" });
                 }
             });
-
-            /*this.healText = this.add.text(0, 50, "Heal Player", { fill: "#ffffff" });
-            this.healText.inputEnabled = true;
-            this.healText.events.onInputDown.add(() => {
-                this.game.playerStatus.currentHP = this.game.playerStatus.maxHP;
-            });*/
         }
 
         update() {

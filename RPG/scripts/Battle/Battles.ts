@@ -10,7 +10,9 @@
 
         hpGauge: Phaser.Text;
 
-        pauseMenu: Phaser.Group;
+        battleMenu: Phaser.Group;
+
+        menuUp: boolean;
 
         preload() {
  
@@ -26,11 +28,12 @@
         create() {
             this.preloadBar.kill();
 
-            this.game.input.keyboard.addKey(Phaser.Keyboard.ESC).onDown.add(this.pauseOrUnpause, this);
+            this.game.input.keyboard.addKey(Phaser.Keyboard.ESC).onDown.add(this.menuCreateOrDestroy, this);
 
             this.createScene();
 
             this.hpGauge = this.add.text(0, 0, "HP: ", { fill: "#000000" });
+            this.menuUp = false;
         }
 
         abstract createScene();
@@ -81,8 +84,6 @@
 
             this.physics.arcade.collide(this.player, this.enemies);
 
-            this.hpGauge.text = "HP: " + this.player.stats.currentHP + "/" + this.player.stats.maxHP;
-
             if (!this.player.alive) {
                 this.game.state.start('GameOver', true, false);
             }
@@ -92,20 +93,49 @@
             }
         }
 
-        // create or destroy pause menu
-        pauseOrUnpause() {
-            this.game.paused = !this.game.paused;
+        render() {
+            this.hpGauge.text = "HP: " + this.player.stats.currentHP + "/" + this.player.stats.maxHP;
+        }
 
-            if (this.game.paused) {
-                this.pauseMenu = this.game.add.group();
+        // create or destroy battle menu
+        menuCreateOrDestroy() {
+            this.menuUp = !this.menuUp;
 
-                var pauseText: Phaser.Text = new Phaser.Text(this.game, this.game.world.centerX, this.game.world.centerY, 'Paused');
-                pauseText.anchor.setTo(0.5, 0.5);
+            if (this.menuUp) {
+                this.battleMenu = this.game.add.group();
 
-                this.pauseMenu.add(pauseText);
+                this.game.items.forEach((itemTypeAndAmount: [string, number], index: number, array: [string, number][]) => {
+                    var itemName: string = itemTypeAndAmount[0];
+                    var itemAmount: number = itemTypeAndAmount[1];
+                    var itemType: any = Items.itemDictionary[itemName];
+                    if (itemType.useInBattle) {
+                        var itemText: Phaser.Text = new Phaser.Text(this.game, 0, 50 + 50 * index, itemTypeAndAmount[0] + ": " + itemTypeAndAmount[1]);
+
+                        itemText.inputEnabled = true;
+                        itemText.events.onInputDown.add(() => {
+                            if (this.game.items[index][1] > 0) {
+                                (new itemType(this.game)).battleUse(this.player);
+                                this.game.items[index][1]--;
+
+                                itemText.text = this.game.items[index][0] + ": " + this.game.items[index][1];
+
+                                if (this.game.items[index][1] <= 0) {
+                                    itemText.fill = "#999999";
+                                }
+                            }
+                        });
+
+                        this.battleMenu.add(itemText);
+                    }
+                    else {
+                        var itemText: Phaser.Text = new Phaser.Text(this.game, 0, 50 + 50 * index, itemTypeAndAmount[0] + ": " + itemTypeAndAmount[1]);
+                        itemText.fill = "#999999";
+                        this.battleMenu.add(itemText);
+                    }
+                });
             }
             else {
-                this.pauseMenu.destroy();
+                this.battleMenu.destroy();
             }
         }
     }
