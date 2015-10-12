@@ -14,11 +14,37 @@
         create() {
             this.statusText = this.add.text(0, 0, "", { fill: "#ffffff", fontSize: "20px" });
 
-            this.healText = this.add.text(0, 50, "Heal Player", { fill: "#ffffff" });
+            this.game.items.forEach((itemTypeAndAmount: [string, number], index: number, array: [string, number][]) => {
+                var itemName: string = itemTypeAndAmount[0];
+                var itemAmount: number = itemTypeAndAmount[1];
+                var itemType: any = Items.itemDictionary[itemName];
+                if (itemType.useInMenu) {
+                    var itemText: Phaser.Text = this.add.text(0, 50 + 50 * index, itemTypeAndAmount[0] + ": " + itemTypeAndAmount[1], { fill: "#ffffff" });
+
+                    itemText.inputEnabled = true;
+                    itemText.events.onInputDown.add(() => {
+                        if (this.game.items[index][1] > 0) {
+                            (new itemType(this.game)).menuUse();
+                            this.game.items[index][1]--;
+
+                            itemText.text = this.game.items[index][0] + ": " + this.game.items[index][1];
+
+                            if (this.game.items[index][1] <= 0) {
+                                itemText.fill = "#999999";
+                            }
+                        }
+                    });
+                }
+                else {
+                    var itemText: Phaser.Text = this.add.text(0, 50 + 50 * index, itemTypeAndAmount[0] + ": " + itemTypeAndAmount[1], { fill: "#999999" });
+                }
+            });
+
+            /*this.healText = this.add.text(0, 50, "Heal Player", { fill: "#ffffff" });
             this.healText.inputEnabled = true;
             this.healText.events.onInputDown.add(() => {
                 this.game.playerStatus.currentHP = this.game.playerStatus.maxHP;
-            });
+            });*/
         }
 
         update() {

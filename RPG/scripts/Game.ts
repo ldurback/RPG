@@ -25,6 +25,10 @@ namespace SideScrollerRPG {
                 defense: 2
             };
 
+            this.items = [];
+            this.items.push(['Potion', 2]);
+            this.items.push(['BlankItem', 5]);
+
             this.state.add('Boot', Boot, true);
         }
 
