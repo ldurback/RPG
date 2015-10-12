@@ -29,7 +29,7 @@
             game.physics.arcade.enable(this);
 
             this.body.collideWorldBounds = true;
-            this.body.setSize(32, 48, 0, 14);
+            this.body.setSize(32, 48, 0, 12);
 
             this.animations.add('left', [117, 118, 119, 120, 121, 122, 123, 124, 125], 10, true);
             this.animations.add('right', [143, 144, 145, 146, 147, 148, 149, 150, 151], 10, true);

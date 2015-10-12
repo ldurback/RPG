@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\background.png" />
+    <Content Include="assets\images\bow-orc.png" />
     <Content Include="assets\images\character.png" />
     <Content Include="assets\images\fly_spritesheet.png" />
     <Content Include="assets\images\loader.png" />

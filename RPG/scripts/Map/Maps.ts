@@ -58,7 +58,13 @@
             this.battleTimer.add(Math.random() * 9000 + 1000, () => {
                 this.game.playerReturnX = this.player.x;
                 this.game.playerReturnY = this.player.y;
-                this.game.state.start('SlimeBattle', true, false);
+
+                if (Math.random() <= 0.5) {
+                    this.game.state.start('SlimeBattle', true, false);
+                }
+                else {
+                    this.game.state.start('BowOrcBattle', true, false);
+                }
             });
             this.battleTimer.start();
         }

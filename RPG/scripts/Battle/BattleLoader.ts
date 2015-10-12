@@ -25,8 +25,13 @@
             this.slimeBattleText.inputEnabled = true;
             this.slimeBattleText.events.onInputDown.add(() => { this.game.state.start('SlimeBattle', true, false) });
 
+            this.game.state.add('BowOrcBattle', BowOrcBattle, false);
+            this.slimeBattleText = this.add.text(0, 250, "BowOrc Battle", { fill: "#FFFFFF" });
+            this.slimeBattleText.inputEnabled = true;
+            this.slimeBattleText.events.onInputDown.add(() => { this.game.state.start('BowOrcBattle', true, false) });
+
             this.game.state.add('BasicMap', BasicMap, false);
-            this.mapText = this.add.text(0, 300, "BasicMap", { fill: "#FFFFFF" });
+            this.mapText = this.add.text(0, 350, "BasicMap", { fill: "#FFFFFF" });
             this.mapText.inputEnabled = true;
             this.mapText.events.onInputDown.add(() => {
                 this.game.playerReturnX = 300;
