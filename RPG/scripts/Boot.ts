@@ -23,7 +23,9 @@
 
             this.game.state.add('GameOver', GameOver, false);
             this.game.state.add('StatusScreen', StatusScreen, false);
-            this.game.state.add('BattleLoader', BattleLoader, true);
+            this.game.state.add('BattleLoader', BattleLoader, false);
+
+            this.game.state.start('BattleLoader', true, false);
         }
     }
  

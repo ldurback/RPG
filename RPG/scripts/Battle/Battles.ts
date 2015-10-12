@@ -10,6 +10,8 @@
 
         hpGauge: Phaser.Text;
 
+        pauseMenu: Phaser.Group;
+
         preload() {
  
             //  Set-up our preloader sprite
@@ -23,9 +25,12 @@
 
         create() {
             this.preloadBar.kill();
+
+            this.game.input.keyboard.addKey(Phaser.Keyboard.ESC).onDown.add(this.pauseOrUnpause, this);
+
             this.createScene();
 
-            this.hpGauge = this.add.text(0, 0, "HP: ", {});
+            this.hpGauge = this.add.text(0, 0, "HP: ", { fill: "#000000" });
         }
 
         abstract createScene();
@@ -34,7 +39,7 @@
             this.physics.arcade.collide(this.player, this.platforms);
             this.physics.arcade.collide(this.enemies, this.platforms);
 
-            this.physics.arcade.overlap(this.player, this.enemies, (player: BattlePlayer, enemy: Enemy) => {
+            this.physics.arcade.overlap(this.player, this.enemies, (player: BattlePlayer, enemy: BattleEntity) => {
                 if (!player.invincible && !enemy.invincible) {
                     player.stats.currentHP -= enemy.stats.strength / player.stats.defense;
                     player.invincible = true;
@@ -47,7 +52,7 @@
                 }
             });
 
-            this.physics.arcade.overlap(this.player, this.enemyBullets, (player: BattlePlayer, bullet: Enemy) => {
+            this.physics.arcade.overlap(this.player, this.enemyBullets, (player: BattlePlayer, bullet: BattleEntity) => {
                 if (!player.invincible) {
                     player.stats.currentHP -= bullet.stats.strength / player.stats.defense;
                     player.invincible = true;
@@ -60,7 +65,7 @@
                 }
             });
 
-            this.physics.arcade.overlap(this.player.equippedWeapon, this.enemies, (playerWeapon: Weapon, enemy: Enemy) => {
+            this.physics.arcade.overlap(this.player.equippedWeapon, this.enemies, (playerWeapon: Weapon, enemy: BattleEntity) => {
                 if (!enemy.invincible) {
                     enemy.stats.currentHP -= playerWeapon.wielder.stats.strength / enemy.stats.defense;
 
@@ -79,11 +84,28 @@
             this.hpGauge.text = "HP: " + this.player.stats.currentHP + "/" + this.player.stats.maxHP;
 
             if (!this.player.alive) {
-                this.game.state.start('GameOver');
+                this.game.state.start('GameOver', true, false);
             }
 
             if (this.enemies.getFirstAlive() == null) {
                 this.game.state.start(this.game.returnState, true, false);
+            }
+        }
+
+        // create or destroy pause menu
+        pauseOrUnpause() {
+            this.game.paused = !this.game.paused;
+
+            if (this.game.paused) {
+                this.pauseMenu = this.game.add.group();
+
+                var pauseText: Phaser.Text = new Phaser.Text(this.game, this.game.world.centerX, this.game.world.centerY, 'Paused');
+                pauseText.anchor.setTo(0.5, 0.5);
+
+                this.pauseMenu.add(pauseText);
+            }
+            else {
+                this.pauseMenu.destroy();
             }
         }
     }

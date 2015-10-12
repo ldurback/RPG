@@ -24,6 +24,7 @@
   <ItemGroup>
     <Content Include="assets\images\background.png" />
     <Content Include="assets\images\bow-orc.png" />
+    <Content Include="assets\images\bullet.png" />
     <Content Include="assets\images\character.png" />
     <Content Include="assets\images\fly_spritesheet.png" />
     <Content Include="assets\images\loader.png" />
@@ -37,12 +38,15 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="scripts\app.ts" />
+    <TypeScriptCompile Include="scripts\Battle\BattleEntity.ts" />
     <TypeScriptCompile Include="scripts\Battle\BattleLoader.ts" />
     <TypeScriptCompile Include="scripts\Battle\Battles.ts" />
     <TypeScriptCompile Include="scripts\GameOver.ts" />
     <TypeScriptCompile Include="scripts\Boot.ts" />
     <TypeScriptCompile Include="scripts\Battle\Enemies.ts" />
     <TypeScriptCompile Include="scripts\Game.ts" />
+    <TypeScriptCompile Include="scripts\Items.ts" />
+    <TypeScriptCompile Include="scripts\lib\p2.d.ts" />
     <TypeScriptCompile Include="scripts\lib\phaser.d.ts" />
     <TypeScriptCompile Include="scripts\lib\pixi.d.ts" />
     <TypeScriptCompile Include="scripts\Map\MapPlayer.ts" />

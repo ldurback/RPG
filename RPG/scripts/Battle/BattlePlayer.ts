@@ -1,15 +1,10 @@
 ﻿namespace SideScrollerRPG {
 
-    export class BattlePlayer extends Phaser.Sprite {
-
-        stats: Status;
-
+    export class BattlePlayer extends BattleEntity {
         cursors: Phaser.CursorKeys;
         facing: string;
         idle: boolean;
         attacking: boolean;
-
-        invincible: boolean;
 
         equippedWeapon: Weapon;
 
@@ -17,7 +12,6 @@
             super(game, x, y, 'character', 26);
 
             this.stats = this.game.playerStatus;
-            this.invincible = false;
 
             this.equippedWeapon = new Weapon(game, this);
 
@@ -41,7 +35,7 @@
             this.cursors = game.input.keyboard.createCursorKeys();
         }
 
-        update() {
+        doMotion() {
             //  Do this AFTER the collide check, or we won't have blocked/touching set
             var standing = this.body.blocked.down || this.body.touching.down;
 
@@ -102,17 +96,6 @@
                 if (standing && this.cursors.up.isDown) {
                     this.body.velocity.y = -500;
                 }
-            }
-
-            if (this.invincible) {
-                this.renderable = !this.renderable;
-            }
-            else {
-                this.renderable = true;
-            }
-
-            if (this.stats.currentHP <= 0) {
-                this.kill();
             }
         }
 

@@ -4,6 +4,8 @@
         returnState: string;
         playerReturnX: number;
         playerReturnY: number;
+
+        items: Array<[string, number]>;
     }
 }
 
